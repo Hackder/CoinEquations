@@ -8,6 +8,8 @@ import { CoinEquationBuilderComponent } from './pages/coin-equation-builder/coin
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CoinComponent } from './components/coin/coin.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, CoinEquationBuilderComponent, CoinComponent],
@@ -17,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     DragDropModule,
     MatIconModule,
+    MatButtonModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

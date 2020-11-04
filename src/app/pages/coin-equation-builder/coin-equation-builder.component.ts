@@ -1,11 +1,11 @@
 import {
   CdkDragDrop,
-  CdkDragEnter,
   copyArrayItem,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Coin } from 'src/app/models/coin';
 
 @Component({
@@ -50,7 +50,15 @@ export class CoinEquationBuilderComponent implements OnInit {
   rightEquationCoins: Coin[] = [];
   deleteVisible: boolean = false;
 
-  constructor() {}
+  constructor(private snackBar: MatSnackBar) {}
+
+  openSnackBar(message: string, action: string, duration?: number) {
+    this.snackBar.open(message, action, {
+      duration: duration || 1500,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -67,6 +75,14 @@ export class CoinEquationBuilderComponent implements OnInit {
     if (val === 0) return val;
     else if (val > 0) return val + 20;
     else return val - 20;
+  }
+
+  get solveDisabled(): boolean {
+    const left = this.leftEquationCoins.filter((coin) => coin.placeholder)
+      .length;
+    const right = this.rightEquationCoins.filter((coin) => coin.placeholder)
+      .length;
+    return !left && !right;
   }
 
   drop(event: CdkDragDrop<Coin[]>) {
@@ -115,5 +131,41 @@ export class CoinEquationBuilderComponent implements OnInit {
 
   noReturnPredicate() {
     return false;
+  }
+
+  countNumberOfVariables(arr: Coin[]): number {
+    return arr.filter((coin) => coin.placeholder).length;
+  }
+
+  setVariables(value: number): void {
+    this.rightEquationCoins.forEach((coin) => {
+      if (coin.placeholder) coin.value = value;
+    });
+    this.leftEquationCoins.forEach((coin) => {
+      if (coin.placeholder) coin.value = value;
+    });
+  }
+
+  solve() {
+    const difference = Math.abs(
+      this.sum(this.leftEquationCoins) - this.sum(this.rightEquationCoins)
+    );
+
+    const variableCountDifference = Math.abs(
+      this.countNumberOfVariables(this.leftEquationCoins) -
+        this.countNumberOfVariables(this.rightEquationCoins)
+    );
+
+    if (difference === 0) {
+      this.setVariables(0);
+      return;
+    }
+
+    if (difference !== 0 && variableCountDifference !== 0) {
+      this.setVariables(difference / variableCountDifference);
+      return;
+    }
+
+    this.openSnackBar('Impossible to solve!', 'OK');
   }
 }

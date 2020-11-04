@@ -1,5 +1,4 @@
-$secondary: #122c34;
-$primary: #50c5b7;
+@import "src/variables";
 
 .main-container {
   display: flex;
@@ -33,6 +32,14 @@ $primary: #50c5b7;
   &:hover {
     opacity: 1;
   }
+}
+
+.bottom-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
 }
 
 .delete-icon {

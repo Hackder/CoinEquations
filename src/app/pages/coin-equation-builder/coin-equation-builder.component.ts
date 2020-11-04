@@ -46,7 +46,7 @@ export class CoinEquationBuilderComponent implements OnInit {
     },
   ];
 
-  leftEquationCoins: Coin[] = [this.availableCoins[0]];
+  leftEquationCoins: Coin[] = [];
   rightEquationCoins: Coin[] = [];
   deleteVisible: boolean = false;
 

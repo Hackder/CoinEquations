@@ -120,3 +120,12 @@ body {
 .h-100 {
   height: 100% !important;
 }
+
+.copyright {
+  pointer-events: all;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: #666666;
+  margin: 20px 40px;
+}

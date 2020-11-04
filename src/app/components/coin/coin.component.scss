@@ -10,6 +10,10 @@
   font-weight: bold;
   border: solid 2px black;
   user-select: none;
+  outline: none;
+  &:focus {
+    outline: none;
+  }
   cursor: pointer;
   &.invert {
     color: white;

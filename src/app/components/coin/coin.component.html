@@ -1,7 +1,8 @@
-<div
+<button
   class="coin"
   [style.background-color]="data.color"
   [ngClass]="{ invert: isWhite }"
+  (dblclick)="doubleClick()"
 >
   <div>{{ data.placeholder || data.value }}</div>
-</div>
+</button>

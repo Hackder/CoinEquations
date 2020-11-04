@@ -7,6 +7,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Coin } from 'src/app/models/coin';
+import { SplitEvent } from 'src/app/models/split.event';
 
 @Component({
   selector: 'app-coin-equation-builder',
@@ -18,31 +19,38 @@ export class CoinEquationBuilderComponent implements OnInit {
     {
       value: 1,
       color: '#9B2915',
+      splitValues: [],
     },
     {
       value: 2,
       color: '#9B2915',
+      splitValues: [1, 1],
     },
     {
       value: 5,
       color: '#9B2915',
+      splitValues: [2, 2, 1],
     },
     {
       value: 10,
       color: '#E9B44C',
+      splitValues: [5, 5],
     },
     {
       value: 20,
       color: '#E9B44C',
+      splitValues: [10, 10],
     },
     {
       value: 50,
       color: '#E9B44C',
+      splitValues: [20, 20, 10],
     },
     {
       value: 0,
       placeholder: '?',
       color: '#FFFFFF00',
+      splitValues: [],
     },
   ];
 
@@ -175,5 +183,28 @@ export class CoinEquationBuilderComponent implements OnInit {
     }
 
     this.openSnackBar('Impossible to solve!', 'OK');
+  }
+
+  reset() {
+    this.leftEquationCoins = [];
+    this.rightEquationCoins = [];
+    this.availableCoins
+      .filter((coin) => coin.placeholder)
+      .forEach((coin) => {
+        coin.value = 0;
+      });
+  }
+
+  splitCoin(event: SplitEvent, list: Coin[]) {
+    list.splice(
+      list.indexOf(event.item),
+      1,
+      ...event.values.map(
+        (value) =>
+          this.availableCoins.find(
+            (coin) => !coin.placeholder && coin.value === value
+          ) || this.availableCoins[0]
+      )
+    );
   }
 }

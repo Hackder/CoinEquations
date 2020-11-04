@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { SplitInterpolation } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Coin } from 'src/app/models/coin';
+import { SplitEvent } from 'src/app/models/split.event';
 
 @Component({
   selector: 'app-coin',
@@ -10,11 +12,22 @@ export class CoinComponent implements OnInit {
   @Input() data: Coin = {
     value: 1,
     color: '#FFCC00',
+    splitValues: [],
   };
+
+  @Output() split = new EventEmitter<SplitEvent>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  doubleClick() {
+    if (this.data.placeholder || this.data.splitValues.length === 0) return;
+    this.split.emit({
+      values: this.data.splitValues,
+      item: this.data,
+    });
+  }
 
   get isWhite(): boolean {
     const col = this.data.color.slice(1);

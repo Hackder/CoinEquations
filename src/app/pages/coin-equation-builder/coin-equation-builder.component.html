@@ -71,7 +71,10 @@
             (cdkDragStarted)="dragStarted()"
             (cdkDragDropped)="dragEnded()"
           >
-            <app-coin [data]="coin"></app-coin>
+            <app-coin
+              (split)="splitCoin($event, leftEquationCoins)"
+              [data]="coin"
+            ></app-coin>
           </div>
         </div>
       </div>
@@ -102,7 +105,10 @@
             (cdkDragStarted)="dragStarted()"
             (cdkDragDropped)="dragEnded()"
           >
-            <app-coin [data]="coin"></app-coin>
+            <app-coin
+              (split)="splitCoin($event, rightEquationCoins)"
+              [data]="coin"
+            ></app-coin>
           </div>
         </div>
       </div>
@@ -127,5 +133,8 @@
       >Hackder</a
     >
     All rights reserved
+  </div>
+  <div class="top-right">
+    <button mat-button (click)="reset()">Reset</button>
   </div>
 </div>

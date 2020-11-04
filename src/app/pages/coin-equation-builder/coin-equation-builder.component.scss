@@ -108,6 +108,13 @@
   box-shadow: 0 0 20px 4px transparentize($color: $secondary, $amount: 0.8);
 }
 
+.top-right {
+  position: absolute;
+  padding: 40px;
+  top: 0;
+  right: 0;
+}
+
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 50%;

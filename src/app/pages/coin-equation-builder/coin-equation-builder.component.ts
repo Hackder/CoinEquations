@@ -142,6 +142,10 @@ export class CoinEquationBuilderComponent implements OnInit {
     return arr.filter((coin) => coin.placeholder).length;
   }
 
+  sumWithoutVariables(arr: Coin[]): number {
+    return this.sum(arr.filter((coin) => !coin.placeholder));
+  }
+
   setVariables(value: number): void {
     this.rightEquationCoins.forEach((coin) => {
       if (coin.placeholder) coin.value = value;
@@ -152,14 +156,13 @@ export class CoinEquationBuilderComponent implements OnInit {
   }
 
   solve() {
-    const difference = Math.abs(
-      this.sum(this.leftEquationCoins) - this.sum(this.rightEquationCoins)
-    );
+    const difference =
+      this.sumWithoutVariables(this.leftEquationCoins) -
+      this.sumWithoutVariables(this.rightEquationCoins);
 
-    const variableCountDifference = Math.abs(
+    const variableCountDifference =
       this.countNumberOfVariables(this.leftEquationCoins) -
-        this.countNumberOfVariables(this.rightEquationCoins)
-    );
+      this.countNumberOfVariables(this.rightEquationCoins);
 
     if (difference === 0) {
       this.setVariables(0);
@@ -167,7 +170,7 @@ export class CoinEquationBuilderComponent implements OnInit {
     }
 
     if (difference !== 0 && variableCountDifference !== 0) {
-      this.setVariables(difference / variableCountDifference);
+      this.setVariables(difference / -variableCountDifference);
       return;
     }
 

@@ -82,7 +82,12 @@ export class CoinEquationBuilderComponent implements OnInit {
       .length;
     const right = this.rightEquationCoins.filter((coin) => coin.placeholder)
       .length;
-    return !left && !right;
+
+    const solveEnabled =
+      (left || right) &&
+      this.leftEquationCoins.length > 0 &&
+      this.rightEquationCoins.length > 0;
+    return !solveEnabled;
   }
 
   drop(event: CdkDragDrop<Coin[]>) {

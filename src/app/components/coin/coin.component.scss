@@ -1,0 +1,19 @@
+.coin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 70px;
+  min-height: 70px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 25px;
+  font-weight: bold;
+  border: solid 2px black;
+  user-select: none;
+  &.invert {
+    color: white;
+  }
+  div {
+    display: block;
+  }
+}

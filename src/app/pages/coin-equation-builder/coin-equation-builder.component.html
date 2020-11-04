@@ -1,0 +1,111 @@
+<div class="main-container">
+  <div class="center-container toolbar">
+    <div
+      cdkDropList
+      cdkDropListSortingDisabled
+      #availableCoinsList="cdkDropList"
+      [cdkDropListData]="availableCoins"
+      [cdkDropListConnectedTo]="[
+        equationLeftSide,
+        deleteList,
+        equationRightSide
+      ]"
+      [cdkDropListEnterPredicate]="noReturnPredicate"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div
+        class="coin"
+        *ngFor="let coin of availableCoins"
+        cdkDrag
+        (cdkDragStarted)="dragStarted()"
+        (cdkDragEnded)="dragEnded()"
+      >
+        <app-coin [data]="coin"></app-coin>
+      </div>
+    </div>
+  </div>
+  <div class="center-container w-100">
+    <div
+      class="center-container top-container"
+      [ngClass]="{ visible: deleteVisible }"
+    >
+      <div
+        class="center-container delete-container"
+        cdkDropList
+        #deleteList="cdkDropList"
+        [cdkDropListConnectedTo]="[
+          availableCoinsList,
+          equationLeftSide,
+          equationRightSide
+        ]"
+        [cdkDropListData]="[]"
+        (cdkDropListDropped)="deleteDropped($event)"
+      >
+        <mat-icon class="delete-icon center-container" [inline]="true"
+          >delete_forever</mat-icon
+        >
+      </div>
+    </div>
+    <div class="equation">
+      <div
+        class="equation-side-container"
+        [style.transform]="'translateY(' + offset + 'px)'"
+      >
+        <div
+          class="equation-side"
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          #equationLeftSide="cdkDropList"
+          [cdkDropListData]="leftEquationCoins"
+          [cdkDropListConnectedTo]="[
+            availableCoinsList,
+            deleteList,
+            equationRightSide
+          ]"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div
+            class="coin"
+            *ngFor="let coin of leftEquationCoins"
+            cdkDrag
+            (cdkDragStarted)="dragStarted()"
+            (cdkDragDropped)="dragEnded()"
+          >
+            <app-coin [data]="coin"></app-coin>
+          </div>
+        </div>
+      </div>
+      <div class="equals center-container">
+        {{ offset === 0 ? "=" : "≠" }}
+      </div>
+      <div
+        class="equation-side-container"
+        [style.transform]="'translateY(' + -offset + 'px)'"
+      >
+        <div
+          class="equation-side"
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          #equationRightSide="cdkDropList"
+          [cdkDropListData]="rightEquationCoins"
+          [cdkDropListConnectedTo]="[
+            availableCoinsList,
+            deleteList,
+            equationLeftSide
+          ]"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <div
+            class="coin"
+            *ngFor="let coin of rightEquationCoins"
+            cdkDrag
+            (cdkDragStarted)="dragStarted()"
+            (cdkDragDropped)="dragEnded()"
+          >
+            <app-coin [data]="coin"></app-coin>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

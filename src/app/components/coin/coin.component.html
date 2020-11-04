@@ -1,0 +1,7 @@
+<div
+  class="coin"
+  [style.background-color]="data.color"
+  [ngClass]="{ invert: isWhite }"
+>
+  <div>{{ data.placeholder || data.value }}</div>
+</div>

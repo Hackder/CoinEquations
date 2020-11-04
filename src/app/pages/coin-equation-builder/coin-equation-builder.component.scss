@@ -1,0 +1,116 @@
+$secondary: #122c34;
+$primary: #50c5b7;
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.center-container {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+  .cdk-drag-placeholder {
+    display: none;
+  }
+  &.visible {
+    visibility: visible;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.delete-icon {
+  font-size: 80px !important;
+  width: 100px !important;
+  user-select: none;
+  height: 100px !important;
+  text-align: center;
+}
+
+.delete-container {
+  max-height: 200px;
+  max-width: 200px;
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.equation {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  .equation-side-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+    &:first-child {
+      flex-direction: row-reverse;
+    }
+    .equation-side {
+      display: flex;
+      flex-direction: row;
+      border-bottom: solid 5px $secondary;
+      box-sizing: border-box;
+      min-width: 80px;
+      min-height: 117px;
+      .cdk-drag-placeholder {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.coin {
+  margin: 20px 10px;
+  display: block;
+  * {
+    position: relative;
+  }
+}
+
+.equals {
+  font-weight: bolder;
+  font-size: 80px;
+  padding: 40px;
+  color: $secondary;
+}
+
+.toolbar {
+  padding: 10px;
+  background-color: $primary;
+  border-right: solid 0px $secondary;
+  box-shadow: 0 0 20px 4px transparentize($color: $secondary, $amount: 0.8);
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 50%;
+  box-shadow: 0 0 5px -3px rgba(0, 0, 0, 0.2), 0 0 10px 1px rgba(0, 0, 0, 0.14),
+    0 0 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.equation-side.cdk-drop-list-dragging .coin:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
